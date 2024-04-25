@@ -129,32 +129,18 @@ public class client {
 				break;
 			}
 
-			// This if needs to be fixed
-			/*else if("joke1.txt".equals(modififedcommand)) {
-				System.out.println("Receiving joke 1");
-				// New part: Receive the file size from the server
-				DataInputStream dataInFromServer = new DataInputStream(clientSocket.getInputStream());
-				long fileSize = dataInFromServer.readLong(); // Read the file size first
-				long bytesReceived = 0;
+			else if("You win!".equals(modifiedcommand)) {
+				System.out.println("You win!");
+				clientSocket.close();
+				break;
+			}
+
+            		else if("You lose...".equals(modifiedcommand)) {
+				System.out.println("You lose...");
+				clientSocket.close();
+				break;
+			}
 				
-				// Prepare to receive the file
-				FileOutputStream fileOut = new FileOutputStream("joke1.txt");
-				byte[] buffer = new byte[8192];
-				
-				while(bytesReceived < fileSize) {
-					int count = dataInFromServer.read(buffer);
-					if (count > 0) {
-						fileOut.write(buffer, 0, count);
-						bytesReceived += count;
-					} else {
-						// End of file data stream
-						break;
-					}
-				}
-				System.out.println("Received from server: What kind of shoes does a spy wear? Sneakers");
-				System.out.println("Finished receiving file");
-				fileOut.close();
-			}*/
 			else {
                     spaces[response - 1] = "O";
                     printBoard(spaces);
