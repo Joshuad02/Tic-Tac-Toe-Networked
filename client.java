@@ -1,5 +1,6 @@
 import java.io.*;
 import java.net.*;
+import java.util.concurrent.TimeUnit;
 
 public class client {
 
@@ -96,6 +97,8 @@ public class client {
 		System.out.println("Enter a number displayed on the board:");
 		while(true) {
 			command = inFromUser.readLine();
+            // System.out.println("COMMAND: " + command);
+
 			// Send line to server
 			try 
 			{
@@ -109,15 +112,23 @@ public class client {
 			}
 			spaces[response - 1] = "X";
 			outToServer.writeBytes(command + "\n");
-			// Read line from server
-			modifiedcommand = inFromServer.readLine();
+            // System.out.println("SENT TO SERVER: " + command);
 
+			// Read line from server
+            TimeUnit.SECONDS.sleep(5);
+			modifiedcommand = inFromServer.readLine();
+            // System.out.println("RECEIVED FROM SERVER: " + modifiedcommand);
+			// modifiedcommand = "2";
+
+            response = Integer.parseInt(modifiedcommand);
 			//System.out.println(modififedcommand);
-			if("Disconnected".equals(modifiedcommand)) {
-				System.out.println("exit");
+            
+			if("It's a tie!".equals(modifiedcommand)) {
+				System.out.println("It's a tie!");
 				clientSocket.close();
 				break;
 			}
+
 			// This if needs to be fixed
 			/*else if("joke1.txt".equals(modififedcommand)) {
 				System.out.println("Receiving joke 1");
@@ -145,10 +156,13 @@ public class client {
 				fileOut.close();
 			}*/
 			else {
+                    spaces[response - 1] = "O";
                     printBoard(spaces);
                     result = checkResults(spaces);
                     if (result.equals("Server") || result.equals("Client") || result.equals("Tie"))
                         break;
+                    System.out.println("-------------");
+                    printBoard(spaces);
                     System.out.println("Enter a number displayed on the board:");
                     try 
                     {
@@ -160,8 +174,7 @@ public class client {
                         outToServer.writeBytes(modifiedcommand);
                         continue;
                     }
-                    spaces[response - 1] = "O";
-                    outToServer.writeBytes(modifiedcommand);
+                    // outToServer.writeBytes(modifiedcommand);
 			}
 
 		}

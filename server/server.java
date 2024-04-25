@@ -94,6 +94,7 @@ public class server {
 
             outToClient.writeBytes("Let's play tic-tac-toe! You are playing with X's.\n");
             while((command = inFromClient.readLine()) != null) {
+                // System.out.println("RECEIVED FROM CLIENT1: " + command);
                 if("bye".equals(command)) {
                     outToClient.writeBytes("Disconnected\n");
                     System.out.println("Disconnected");
@@ -139,6 +140,11 @@ public class server {
                         break;
                     System.out.println("Enter a number displayed on the board:");
                     modifiedSentence = inFromUser.readLine();
+                    // System.out.println("MODIFIED: " + modifiedSentence);
+                    outToClient.writeBytes(modifiedSentence + '\n');
+                    // System.out.println("SENT TO CLIENT MODIFIED: " + modifiedSentence);
+
+                    
                     try 
                     {
                         response = Integer.parseInt(modifiedSentence);
@@ -150,7 +156,9 @@ public class server {
                         continue;
                     }
                     spaces[response - 1] = "O";
-                    outToClient.writeBytes(modifiedSentence);
+                    printBoard(spaces);
+                    System.out.println("-------------");
+                    
                 }
 
             }
