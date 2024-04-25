@@ -101,26 +101,6 @@ public class server {
                     //TimeUnit.SECONDS.sleep(1);
                     break;
                 }
-                /*else if("Joke 1".equals(command)) {
-                    System.out.println("Client requested: " + command + ", returning joke");
-                    outToClient.writeBytes("joke1.txt\n");
-                    TimeUnit.SECONDS.sleep(1);
-    
-                    File file = new File("../jokes/joke1.txt");
-                    long length = file.length();
-                    outToClient.writeLong(length);
-                    byte[] bytes = new byte[8192];
-                    InputStream in = new FileInputStream(file);
-                    OutputStream out = connectionSocket.getOutputStream();
-                    
-                    int count;
-                    while((count = in.read(bytes)) > 0) {
-                        out.write(bytes, 0, count);
-                    }
-
-                    in.close();
-
-                }*/
                 else {
                     // Desired modifications to sentence
                     try 
